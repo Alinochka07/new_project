@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.name }} {% else %} Goods {% endif %}
+{% endblock %}
+
+{% block content %}
+   <div class="container">
+      <div class="row" style="margin-top: 6%">
+
+        <div class="col-sm-8 blog-main">
+
+          <div class="blog-post">
+              <div class="row">
+                <div class="card">
+                    <div class="card-body" style="width: 500px;">
+                        <div class="col-md-6 text-right">
+                            <img src="{% if good.image %} {{ good.image.url }} {% else %} {% static 'media/nophoto.jpg' %} {% endif %}" alt="..." style="height: 430px; width: auto; padding-top: 15px;">
+                        </div>
+                        <br>
+                        <div class="" style="padding-left: 20px" width="400px">
+                            <h3>{{ good.name }}</h3>
+                            <h6><a href="{{ good.category.get_absolute_url }}">Категория: {{ good.category }}</a></h6>
+                            <p class="text-muted">Цена: {{ good.price }} Сом</p>
+                            <form action="{% url "cart:add-to-cart" good.id %}" method="post">
+                                {% csrf_token %}
+                                {{ cart_good_form }}
+                                <input type="submit" value="Добавить в корзину" class="btn btn-outline-info">
+                            </form>
+                            <p style="font-weight: bolder;">Описание:</p><p>{{ good.description|safe|linebreaksbr }}</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+
+
+          </div><!-- /.blog-post -->
+
+        </div><!-- /.blog-main -->
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+{% endblock %}

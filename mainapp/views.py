@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from django.views.generic import DetailView, View, TemplateView
 from .models import Category, Good
-from django.views import View
 from cart.forms import CartAddGoodForm
 
 
