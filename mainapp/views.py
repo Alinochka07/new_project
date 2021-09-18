@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import Category, Good
 from cart.forms import CartAddGoodForm
+from django.views.generic import View
 
 
 
@@ -26,3 +27,9 @@ def goods_detail(request, id, good_slug):
     return render(request, 'good/gooddetail.html', {
         'good': good, 
         'cart_good_form': cart_good_form})
+
+
+
+class DeliveryPage(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'delivery.html')
