@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import Category, Good
 from cart.forms import CartAddGoodForm
-from django.views.generic import View
+from django.views.generic import View, ListView
 
 
 
@@ -30,6 +30,15 @@ def goods_detail(request, id, good_slug):
 
 
 
+
 class DeliveryPage(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'delivery.html')
+
+
+
+def searchbar(request):
+    if request.method == 'GET':
+        search = request.GET.get('search')
+        good = Good.objects.all().filter(name=search)
+        return render(request, 'search.html', {'good': good})

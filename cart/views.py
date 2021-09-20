@@ -28,3 +28,5 @@ def cart_detail(request):
     for shopitem in cart:
         shopitem['update_quantity_form'] = CartAddGoodForm(initial={'quantity': shopitem['quantity'], 'update': True})
     return render(request, 'cart/cartdetail.html', {'cart': cart})
+
+

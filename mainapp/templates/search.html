@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block page %}
+{% if good %}
+<h1>Search results found</h1><br>
+    {% for i in good %} 
+    <h2><a href="{{ i.slug }}">{{ i.name }}</a></h2>
+    {% endfor %}
+{% else %}
+<h3>Nothing found</h3>
+{% endif %}
+
+{% endblock %}

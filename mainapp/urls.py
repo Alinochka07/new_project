@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:id>/<good_slug>/', views.goods_detail, name='goods-detail'),
     path('<category_slug>/', views.goods_list, name='category-list'),
     path('delivery', DeliveryPage.as_view(), name='delivery'),
+    path('/search/<good_slug>/', views.searchbar, name='search'),
 ]

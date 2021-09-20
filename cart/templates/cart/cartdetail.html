@@ -17,7 +17,8 @@
                             {{ total_items }} shopitem {{ total_items|pluralize }}, Общая стоимость: {{ cart.get_total_price }}
                         </a>
                         {% else %}
-                        Ваша корзина пуста
+                       
+                        <h3 style="font-style:italic;">  Ваша корзина пуста</h3>
                     {% endif %}
                 {% endwith %}
             </span>

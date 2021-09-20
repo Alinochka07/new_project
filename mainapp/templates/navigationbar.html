@@ -62,9 +62,10 @@
             </li>
 
             <nav class="navbar navbar-light bg-white">
-              <form class="form-inline" actions="#" method="GET">
+            
+              <form class="form-inline" action="/search/" method="GET">
 
-                <input class="form-control mr-sm-2" href="#" type="search" placeholder="Искать товар" aria-label="Search">
+                <input class="form-control mr-sm-2" type="text" placeholder="Искать товар" name="search">
                 <button class="btn btn-primary" type="submit">Поиск</button> 
               </form>
             </nav>
@@ -77,7 +78,7 @@
                   </span>
                 </a>
 
-                <a class="navbar-brand" href="http://127.0.0.1:8000/delivery">
+                <a class="navbar-brand" href="{% url 'mainapp:delivery' %}">
                   <img src="{% static 'media/delivery.jpg' %}" alt="" width="40">
                 </a>
 

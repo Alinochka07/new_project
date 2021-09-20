@@ -24,8 +24,9 @@ class Category(models.Model):
 
 
 class Good(models.Model):
-    category = models.ForeignKey(Category, related_name='товары', verbose_name="Категория",on_delete=models.CASCADE)
+    
     name = models.CharField(max_length=200, db_index=True, verbose_name="Название товара")
+    category = models.ForeignKey(Category, related_name='товары', verbose_name="Категория",on_delete=models.CASCADE)
     slug = models.SlugField(max_length=200, db_index=True)
     image = models.ImageField(upload_to='media', blank=True, verbose_name="Картинка")
     description = models.TextField(blank=True, verbose_name="Описание")
@@ -34,11 +35,11 @@ class Good(models.Model):
     available = models.BooleanField(default=True, verbose_name="Доступен")
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
     updated = models.DateTimeField(auto_now=True, verbose_name='Обновлен')
-    sale = models.IntegerField(default=0, verbose_name="Скидка %")
+    # sale = models.IntegerField(default=0, verbose_name="Скидка %")
 
-    def get_sale(self):
-        price = int(self.price * (100 - self.sale) / 100)
-        return price
+    # def get_sale(self):
+    #     price = int(self.price * (100 - self.sale) / 100)
+    #     return price
 
     class Meta:
         ordering = ['name']
