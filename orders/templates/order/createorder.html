@@ -7,27 +7,28 @@
 {% block content %}
     <div class="container">
         <div class="row" style="margin-top: 6%">
-            <div class="col-md-8">
-                <h4 class="page-header">Заявка</h4>
+            <div class="col-md-6">
+                <p class="text-uppercase">Заполните ниже заявку для заказа</p>
                 <form action="." method="post">
                     {% csrf_token %}
                     {{ form.as_p }}<br>
-                    <input type="submit" class="btn btn-primary" value="Отправить заявку">
+                    <input type="submit" class="btn btn-success" value="Отправить заявку">
                 </form>
+                <br>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="page-header">
-                    Ваш заказ
+                    <p class="text-uppercase" style="text-align: center;">Ваш заказ</p>
                 </div>
                 <ul class="list-group">
                     {% for shopitem in cart %}
                         <li class="list-group-item">
-                        {{ shopitem.quantity }}x {{ shopitem.good.name }}
-                        <span>Общая стоимость {{ shopitem.total_price }}</span>
+                        {{ shopitem.quantity }} шт. - {{ shopitem.product.name }}, 
+                        <span>стоимость {{ shopitem.total_price }} сом</span>
                         </li>
                     {% endfor %}
 
-                <li class="list-group-item active">Итоговая стоимость: {{ cart.get_total_price }}</li>
+                <li class="list-group-item active" style="background-color: #a8a8a8; border: 0;">Итоговая стоимость: {{ cart.get_total_price }} сом</li>
                 </ul>
 
             </div>

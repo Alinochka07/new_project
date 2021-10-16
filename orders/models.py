@@ -1,12 +1,16 @@
 from django.db import models
-from mainapp.models import Good
+from mainapp.models import Product
 
 
 class Order(models.Model):
-    first_name = models.CharField(max_length=60)
-    last_name = models.CharField(max_length=60)
+    first_name = models.CharField(max_length=60, verbose_name='Ваше имя')
+    last_name = models.CharField(max_length=60, verbose_name='Фамилия')
     email = models.EmailField()
-    address = models.CharField(max_length=150)
+    DELIVER = 'Доставка'
+    NO_DELIVER = 'Самовывоз'
+    DELIVERY = [(DELIVER, 'Доставка'), (NO_DELIVER, 'Самовывоз')]
+    deliveries = models.CharField(max_length=10, choices=DELIVERY, verbose_name='Опция доставки')
+    address = models.CharField(max_length=150, verbose_name='Адрес доставки')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
@@ -23,7 +27,7 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='shopitems', on_delete=models.CASCADE)
-    good = models.ForeignKey(Good, related_name='order_items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
 

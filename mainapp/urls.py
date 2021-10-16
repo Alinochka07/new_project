@@ -5,9 +5,11 @@ from . import views
 
 app_name = 'mainapp'
 urlpatterns = [
-    path('', views.goods_list, name='goods-list'),
-    path('<int:id>/<good_slug>/', views.goods_detail, name='goods-detail'),
-    path('<category_slug>/', views.goods_list, name='category-list'),
+    path('', product_list, name='product-list'),
+    path('<int:id>/<product_slug>/', views.product_detail, name='product-detail'),
+    path('<category_slug>/', views.product_list, name='category-list'),
     path('delivery', DeliveryPage.as_view(), name='delivery'),
-    path('/search/', views.searchbar, name='search'),
+    path('search/', ProductListView.as_view, name='search'),
+    path('addcomment/<int:id>/', views.addcomment, name='addcomment'),
+    # path('/search/', views.searchbar, name='search'),
 ]

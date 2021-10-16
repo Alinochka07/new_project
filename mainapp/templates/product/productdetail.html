@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.name }} {% else %} Products {% endif %}
+{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="styles.css">
+
+<style>
+.product-reviews {
+  margin-bottom: 30px;
+  }
+.product-rating {
+  display: inline-block;
+}
+
+.product-rating>i {
+  color: #FFB656;
+}
+
+.product .product-rating>i.empty {
+  color: #DADADA;
+}
+.single-review {
+  margin-bottom: 30px;
+}
+
+.single-review .review-heading>div {
+  display: inline-block;
+}
+
+.single-review .review-heading>div+div {
+  margin-left: 10px;
+}
+
+.single-review .review-rating {
+  display: inline-block;
+}
+
+.single-review .review-rating>i {
+  color: #FFB656;
+}
+
+.single-review .review-rating>i.empty {
+  color: #DADADA;
+}
+
+.single-review .review-body {
+  margin-top: 10px;
+}
+
+.reviews-pages li {
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.reviews-pages li a {
+  display: block;
+  min-width: 10px;
+  text-align: center;
+}
+
+.reviews-pages li.active {
+  color: #F8694A;
+}
+/*-- review form --*/
+
+.review-form textarea.input {
+  height: 90px;
+}
+
+.review-form .input-rating .stars {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.review-form .input-rating .stars input[type="radio"] {
+  display: none;
+}
+
+.review-form .input-rating .stars>label {
+  float: right;
+  cursor: pointer;
+  padding: 0px 3px;
+  margin: 0px;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+}
+
+.review-form .input-rating .stars>label:hover, .review-form .input-rating .stars>label:hover~label {
+  -webkit-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+.review-form .input-rating .stars>label:before {
+  content: "\f006";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  color: #DADADA;
+  font-size: 14px;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+}
+
+.review-form .input-rating .stars>label:hover:before, .review-form .input-rating .stars>label:hover~label:before {
+  content: "\f005";
+  color: #FFB656;
+}
+
+.review-form .input-rating .stars>input:checked label:before, .review-form .input-rating .stars>input:checked~label:before {
+  content: "\f005";
+  color: #FFB656;
+}
+</style>
+
+<div class="container">
+  <nav aria-label="breadcrumb" class="mt-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'mainapp:product-list' %}">Главная</a></li>
+      <li class="breadcrumb-item"><a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+    </ol>
+  </nav>
+
+  <div class="row">
+    <div class="col-md-4">
+        <img src="{{ product.image.url }}" class="img-fluid">
+    </div>  <!--col-md-4-->
+    <div class="col-md-8">
+      <h4>{{ product.name }}</h4>
+      <!--rating-->
+      <div class="product-rating">
+        <i class="fa fa-star{% if product.averagereview < 1%}-o empty{% endif%}"></i>
+        <i class="fa fa-star{% if product.averagereview < 2%}-o empty{% endif%}"></i>
+        <i class="fa fa-star{% if product.averagereview < 3%}-o empty{% endif%}"></i>
+        <i class="fa fa-star{% if product.averagereview < 4%}-o empty{% endif%}"></i>
+        <i class="fa fa-star{% if product.averagereview < 5%}-o empty{% endif%}"></i>
+        {{ product.averagereview |stringformat:".2f" }}
+    </div>
+    
+      <!--end of rating--> 
+      <br>
+      <br>
+      
+      <p style="font-weight: bolder; color: rgb(214, 29, 29);">Цена: {{ product.price }} Сом</p>
+     
+      <p style="font-weight: 500;">Описание:</p>{{ product.description }}</p>
+      <hr>
+      <form action="{% url 'cart:add-to-cart' product.id %}" method="post">
+        {% csrf_token %}
+        {{ cart_product_form }}
+        
+      <input type="submit" value="Добавить в корзину" class="btn btn-success">
+      </form>
+    </div>  <!--col-md-8-->
+
+<hr>
+<br>
+<br>
+<hr>
+  </div>  <!--row-->
+  <hr>
+  <br>
+  <br>
+  <!--Review part-->
+  <div id="tab2" class="tab-pane">
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="product-reviews">
+                {% for rs in comments %}
+                    <div class="single-review">
+                        <div class="review-heading">
+                            <div><i class="fa fa-user-o"></i> {{ rs.user.username }}</div>
+                            
+                            <div><i class="fa fa-clock-o"></i> {{ rs.create_at}}</div><br>
+                            <div><b>{{ rs.subject }}</b> </div>
+
+                            <div class="review-rating pull-right">
+                                <i class="fa fa-star{% if rs.rate < 1 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if rs.rate < 2 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if rs.rate < 3 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if rs.rate < 4 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if rs.rate < 5 %}-o empty{% endif %}"></i>
+                            </div>
+                        </div>
+                        <div class="review-body">
+                            <p>{{ rs.comment }}</p>
+                            <hr>
+                        </div>
+                    </div>
+                {% endfor %}
+                <hr>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+          <div></div>
+        </div>
+
+        <div class="col-md-5">
+            <hp class="text-uppercase">Оставьте свой отзыв о товаре</p>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{message.tags}}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <form class="review-form" action="{% url 'mainapp:addcomment' product.id %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input name="subject" class="input" type="text" placeholder="Тема отзыва" />
+                </div>
+                <div class="form-group">
+                    <textarea name="comment" class="input" placeholder="Ваш отзыв" rows="5" cols="40"></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="input-rating">
+                        <strong class="text-uppercase">Ваш рейтинг: </strong>
+                        <div class="stars">
+                            <input type="radio" id="star1" name="rate" value="1" /><label for="star1"></label>
+                            <input type="radio" id="star2" name="rate" value="2" /><label for="star2"></label>
+                            <input type="radio" id="star3" name="rate" value="3" /><label for="star3"></label>
+                            <input type="radio" id="star4" name="rate" value="4" /><label for="star4"></label>
+                            <input type="radio" id="star5" name="rate" value="5" /><label for="star5"></label>
+                        </div>
+                    </div>
+                </div>
+                {% if user.id is not None %}
+                    <button class="btn btn-success">Отправить</button>
+                {% else %}
+                    <p>Авторизуйтесь, для того, чтобы добавлять отзывы...</p>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+    
+<br>
+<br>
+<br>
+  
+</div><!--end of container-->
+
+{% endblock content %}

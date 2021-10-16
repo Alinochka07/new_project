@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- <div class="container" style="text-align: center;">
+    <h6 class="text-uppercase">Регистрация аккаунта</h6>
+
+    <form method="post" action="{% url 'account:register' %}" class="form-horizontal">
+        {% include 'forms.html' with button_text='Регистрация' %}
+    </form>
+</div> -->
+
+
+<div class="container">
+
+    <h3>Регистрация аккаунта</h3>
+    <br>
+
+    <form action="{% url 'account:register' %}" method="post" class="">
+
+        {% csrf_token %}
+        {% include 'forms.html' with button_text='Регистрация' %}
+        {% if has_error %}
+
+            <p class="form-error">Неверное имя пользователя или пароль</p>
+
+        {% endif %}
+        <br>
+        
+
+    </form>
+    
+
+    <!-- Remind Passowrd -->
+    <!-- <div id="formFooter">
+        <a class="underlineHover" href="{% url 'account:register' %}">Забыл пароль?</a>
+      </div> -->
+
+<br>
+</div>
+
+{% endblock content %}
+    

@@ -1,13 +1,37 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block page %}
-{% if good %}
+
+<h1>Search page</h1>
+
+
+<h1>Поиск</h1>
+
+
+{% block content %}
+<h1>Поиск</h1>
+    {% if article in object_list %}
+        {% for article in object_list %}
+            <article>
+                <a href="{{ article.get_absolute_url }}">
+                    <h2>{{ article.article_title }}</h2>
+                </a>
+                {{ article.post|safe }}
+                <p><a class="btn btn-default btn-sm" href="{{ article.get_absolute_url }}">Читать далее</a></p>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>Не найдено публикаций по вашему запросу<br>Попробуйте повторить запрос с другой формулировкой</p>
+    {% endif %}
+{% endblock %}
+
+<!-- {% if good_objects %}
 <h1>Search results found</h1><br>
-    {% for i in good %} 
+    {% for i in good_objects %} 
     <h2><a href="{{ i.slug }}">{{ i.name }}</a></h2>
     {% endfor %}
 {% else %}
 <h3>Nothing found</h3>
-{% endif %}
+{% endif %} -->
 
 {% endblock %}

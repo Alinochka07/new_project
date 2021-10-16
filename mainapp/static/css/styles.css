@@ -115,3 +115,56 @@
   .bouquet{
     padding: 15px;
   }
+
+  
+
+.review-rating:not(:checked) > label {
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 12px;
+  color: #ccc;
+}
+
+.review-rating > input:checked ~ label {
+  color: #ffc700;
+}
+
+.review-rating {
+  float: left;
+  height: 0px;
+  padding: 0;
+}
+.review-rating:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+}
+.review-rating:not(:checked) > label {
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 17px;
+  color: #ccc;
+}
+.review-rating:not(:checked) > label:before {
+  content: "★ ";
+}
+.review-rating > input:checked ~ label {
+  color: #ffc700;
+}
+.review-rating:not(:checked) > label:hover,
+.review-rating:not(:checked) > label:hover ~ label {
+  color: #deb217;
+}
+.review-rating > input:checked + label:hover,
+.review-rating > input:checked + label:hover ~ label,
+.review-rating > input:checked ~ label:hover,
+.review-rating > input:checked ~ label:hover ~ label,
+.review-rating > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+

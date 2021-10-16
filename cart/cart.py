@@ -1,6 +1,6 @@
 from decimal import Decimal
 from django.conf import settings
-from mainapp.models import Good
+from mainapp.models import Product
 
 
 class Cart(object):
@@ -11,31 +11,31 @@ class Cart(object):
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
 
-    def add(self, good, quantity=1, update_quantity=False):
-        good_id = str(good.id)
-        if good_id not in self.cart:
-            self.cart[good_id] = {'quantity': 0, 'price': str(good.price)}
+    def add(self, product, quantity=1, update_quantity=False):
+        product_id = str(product.id)
+        if product_id not in self.cart:
+            self.cart[product_id] = {'quantity': 0, 'price': str(product.price)}
         if update_quantity:
-            self.cart[good_id]['quantity'] = quantity
+            self.cart[product_id]['quantity'] = quantity
         else:
-            self.cart[good_id]['quantity'] += quantity
+            self.cart[product_id]['quantity'] += quantity
         self.save()
 
     def save(self):
         self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True
 
-    def remove(self, good):
-        good_id = str(good.id)
-        if good_id in self.cart:
-            del self.cart[good_id]
+    def remove(self, product):
+        product_id = str(product.id)
+        if product_id in self.cart:
+            del self.cart[product_id]
             self.save()
 
     def __iter__(self):
-        good_ids = self.cart.keys()
-        goods = Good.objects.filter(id__in=good_ids)
-        for good in goods:
-            self.cart[str(good.id)]['good'] = good
+        product_ids = self.cart.keys()
+        products = Product.objects.filter(id__in=product_ids)
+        for product in products:
+            self.cart[str(product.id)]['product'] = product
 
         for shopitem in self.cart.values():
             shopitem['price'] = Decimal(shopitem['price'])

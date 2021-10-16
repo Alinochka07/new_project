@@ -13,7 +13,7 @@ def create_order(request):
             for shopitem in cart:
                 OrderItem.objects.create(
                     order=order,
-                    good=shopitem['good'],
+                    product=shopitem['product'],
                     price=shopitem['price'],
                     quantity=shopitem['quantity']
                 )

@@ -16,7 +16,7 @@
 <body>
       
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <a class="navbar-brand" href="{% url 'mainapp:goods-list' %}"><img src="{% static 'media/logo.png' %}" alt="Logo"></a>
+        <a class="navbar-brand" href="{% url 'mainapp:product-list' %}"><img src="{% static 'media/logo.png' %}" alt="Logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -65,8 +65,8 @@
             
               <form class="form-inline" action="/search/" method="GET">
 
-                <input class="form-control mr-sm-2" type="text" placeholder="Искать товар" name="search">
-                <button class="btn btn-primary" type="submit">Поиск</button> 
+                <input class="form-control mr-sm-2" type="text" placeholder="Искать товар" name="q">
+                <button class="btn btn-success" type="submit">Поиск</button> 
               </form>
             </nav>
 
@@ -82,10 +82,30 @@
                   <img src="{% static 'media/delivery.jpg' %}" alt="" width="40">
                 </a>
 
-                <a class="navbar-brand" href="#">
-                  <img src="{% static 'media/profile.png' %}" alt="" width="30">
-                </a>
+            </nav>
+            <nav class="navbar navbar-light bg-white">
+              <div class="btn-group">
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Аккаунт
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'account:login' %}">Войти в аккаунт</a>
+                  
+                  <a class="dropdown-item" href="{% url 'account:logout' %}">Выйти из аккаунта</a>
+                  {% block menu_links %}{% endblock %}
+                  <a class="dropdown-item" href="{% url 'account:register' %}">Регистрация</a>
+                  
               </div>
+            </nav>
+
+            <nav class="navbar navbar-light bg-white">
+
+              {% if user.is_authenticated %}   
+            
+                  <li class="menu-right">Привет, {{ user.username }}!</li>
+    
+                  {% endif %}
+    
             </nav>
        
         </div>
@@ -102,16 +122,16 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="{% static 'media/slider1.png' %}" alt="First slide">
+      <img class="d-block w-100" src="{% static 'media/slide1.png' %}" alt="First slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="{% static 'media/slider2.png' %}" alt="Second slide">
+      <img class="d-block w-100" src="{% static 'media/slide2.png' %}" alt="Second slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="{% static 'media/slider3.png' %}" alt="Third slide">
+      <img class="d-block w-100" src="{% static 'media/slide3.png' %}" alt="Third slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="{% static 'media/slider4.png' %}" alt="Fourth slide">
+      <img class="d-block w-100" src="{% static 'media/slide4.png' %}" alt="Fourth slide">
     </div>
   </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

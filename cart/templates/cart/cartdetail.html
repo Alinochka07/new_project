@@ -8,23 +8,25 @@
 {% block content %}
     <div class="container">
         <div class="row" style="margin-top: 6%">
-       <h2 style="text-align:center;">Мои заказы:</h2>
-            <span class="badge pull-right">
+       
+            <p>
                 {% with total_items=cart|length %}
                     {% if cart|length > 0 %}
                     
                         <a href="{% url "cart:cart-detail" %}" style="color: #ffffff">
-                            {{ total_items }} shopitem {{ total_items|pluralize }}, Общая стоимость: {{ cart.get_total_price }}
+                            {{ total_items }} shopitem {{ total_items|pluralize }}, Общая стоимость: 
+                          
+                            {{ cart.get_total_price }}
                         </a>
                         {% else %}
-                       
-                        <h3 style="font-style:italic;">  Ваша корзина пуста</h3>
+                      
+                <p>Ваша корзина пуста</p>
                     {% endif %}
                 {% endwith %}
-            </span>
+                    </p>
         
             <table class="table table-striped table-hover">
-                <thead style="background-color: #c4e0f7">
+                <thead style="background-color: #e7d1fc">
                     <tr>
                         <th>Изображение</th>
                         <th>Наименование товара</th>
@@ -36,40 +38,40 @@
                 </thead>
                 <tbody>
                 {% for shopitem in cart %}
-                    {% with good=shopitem.good  %}
+                    {% with product=shopitem.product  %}
                         <tr>
                             <td>
-                                <a href="{{ good.get_absolute_url }}">
-                                    <img src="{% if good.image %} {{ good.image.url }} {% else %} {% static 'media/nophoto.jpg' %} {% endif %}" alt="..." style="height: 130px; width: auto">
+                                <a href="{{ product.get_absolute_url }}">
+                                    <img src="{% if product.image %} {{ product.image.url }} {% else %} {% static 'media/nophoto.jpg' %} {% endif %}" alt="..." style="height: 130px; width: auto">
                                 </a>
                             </td>
-                            <td>{{ good.name }}</td>
+                            <td>{{ product.name }}</td>
                             <td>
-                                <form action="{% url "cart:add-to-cart" good.id %}" method="post">
+                                <form action="{% url "cart:add-to-cart" product.id %}" method="post">
                                     {% csrf_token %}
                                     {{ shopitem.update_quantity_form.quantity }}
                                     {{ shopitem.update_quantity_form.update }}
-                                    <input type="submit" value="Обновить" class="btn btn-primary btn-md mr-1 mb-2">
+                                    <input type="submit" value="Обновить" class="btn btn-success btn-md mr-1 mb-2">
                                 </form>
                             </td>
                             <td>
-                                <a href="{% url "cart:remove-from-cart" good.id %}"><input type="submit" value="Удалить" class="btn btn-danger"></a>
+                                <a href="{% url "cart:remove-from-cart" product.id %}"><input type="submit" value="Удалить" class="btn btn-danger"></a>
                             </td>
-                            <td>{{ good.price }} Сом</td>
+                            <td>{{ product.price }} Сом</td>
                             <td>{{ shopitem.total_price }} Сом</td>
                         </tr>
                     {% endwith %}
                 {% endfor %}
-                <tr style="background-color: #c4e0f7">
+                <tr style="background-color: #e7d1fc">
                     <td><b></b></td>
                     <td colspan="4"></td>
-                    <td colspan="num"><b>Итоговая стоимость: {{ cart.get_total_price }} Сом</b></td>
+                    <td colspan="num"><b>Сумма: {{ cart.get_total_price }} Сом</b></td>
                 </tr>
                 </tbody>
             </table>
         <p class="text-right">
-            <a href="{% url "mainapp:goods-list" %}" class="btn btn-primary btn-md mr-1 mb-2">Продолжить покупку</a>
-            <a href="{% url "orders:create-order" %}" class="btn btn-primary btn-md mr-1 mb-2">Перейти к оформлению заказа</a>
+            <a href="{% url "mainapp:product-list" %}" class="btn btn-success btn-md mr-1 mb-2">Продолжить покупку</a>
+            <a href="{% url "orders:create-order" %}" class="btn btn-success btn-md mr-1 mb-2">Перейти к оформлению заказа</a>
         </p>
         </div>
     </div>
