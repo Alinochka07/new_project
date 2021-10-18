@@ -1,4 +1,5 @@
 from django.db import models
+
 from mainapp.models import Product
 
 
@@ -14,6 +15,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
+    comments = models.CharField(max_length=200, verbose_name='Комментарии к заказу')
 
     class Meta:
         ordering = ('-created', )

@@ -60,3 +60,4 @@ def user_activate_view(request, token):
     return redirect('mainapp:product-detail')
 
 
+

@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import OrderItem
 from .forms import CreateOrderForm
 from cart.cart import Cart
+from account.models import *
+from account.views import *
 
 
 def create_order(request):
@@ -22,3 +24,4 @@ def create_order(request):
     else:
         form = CreateOrderForm()
     return render(request, 'order/createorder.html', {'form': form})
+

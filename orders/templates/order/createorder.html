@@ -11,7 +11,9 @@
                 <p class="text-uppercase">Заполните ниже заявку для заказа</p>
                 <form action="." method="post">
                     {% csrf_token %}
+                    
                     {{ form.as_p }}<br>
+                  
                     <input type="submit" class="btn btn-success" value="Отправить заявку">
                 </form>
                 <br>
@@ -24,14 +26,16 @@
                     {% for shopitem in cart %}
                         <li class="list-group-item">
                         {{ shopitem.quantity }} шт. - {{ shopitem.product.name }}, 
-                        <span>стоимость {{ shopitem.total_price }} сом</span>
+                        <span>сумма к оплате {{ shopitem.total_price }} сом</span>
                         </li>
                     {% endfor %}
 
-                <li class="list-group-item active" style="background-color: #a8a8a8; border: 0;">Итоговая стоимость: {{ cart.get_total_price }} сом</li>
+                <li class="list-group-item active" style="background-color: #e02f2f; border: 0;">Итоговая сумма: {{ cart.get_total_price }} сом</li>
                 </ul>
 
             </div>
         </div>
     </div>
+    <br>
+    <br>
 {% endblock %}
