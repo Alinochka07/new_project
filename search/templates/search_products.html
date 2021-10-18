@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ query }} results {% endblock %}
+
+
+{% block content %}
+
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="/">Главная   &nbsp;</a>   |  </li>
+				<li class="active">&nbsp; результаты поиска по ключевому слову "{{ query }}"</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+
+				<!-- MAIN -->
+				<div id="main" class="col-md-12">
+					
+                    <br>
+                    <br>
+					<!-- STORE -->
+					<div id="">
+						<!-- row -->
+						<div class="row">
+
+                            <div class="col-md-12">
+						<div class="order-summary clearfix">
+							<div class="section-title">
+								<h4 class="title">По Вашему запросу найдено:</h4>
+							</div>
+							<table class="shopping-cart-table table">
+								<thead>
+									<tr>
+										<th>Изображение</th>
+										<th>Название товара</th>
+                                        <th>Категория</th>
+										
+									</tr>
+								</thead>
+								<tbody>
+
+                                {% for rs in products %}
+									<tr>
+										<td class="thumb"><a href="/product/{{ rs.id }}/{{ rs.slug }}">
+                                            <img src="{{ rs.image.url }}" alt="" style="height: 100px">
+                                        </a></td>
+
+										<td class="details"> <a href="/product/{{ rs.id }}/{{ rs.slug }}">{{ rs.name }}</a>	</td>
+                                        <td class="details"> <a href="/category/{{ rs.category_id }}/{{ rs.category.slug }}">{{ rs.category }}</a>	</td>
+										
+									
+
+			
+									</tr>
+                                    {% endfor %}
+
+								</tbody>
+
+							</table>
+
+						</div>
+
+					</div>
+
+						</div>
+						<!-- /row -->
+					</div>
+					<!-- /STORE -->
+
+					
+				</div>
+				<!-- /MAIN -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+
+{% endblock %}

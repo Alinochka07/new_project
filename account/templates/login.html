@@ -7,7 +7,7 @@
 
 <div class="container">
 
-    <h3>Вход пользователя</h3>
+    <h3 style="text-align: center;">Вход пользователя</h3>
 
     <form action="{% url 'account:login' %}" method="post" class="">
 
@@ -15,7 +15,7 @@
 
         {% if has_error %}
 
-            <p class="form-error">Неверное имя пользователя или пароль.</p>
+        <p class="form-error">Неверное имя пользователя или пароль.</p>
 
         {% endif %}
 <br>
@@ -23,7 +23,7 @@
 
             <label for="username" class="form-label">Имя пользователя:</label><br>
 
-            <input type="text" name="username" id="username" placeholder="Имя пользователя">
+            <input type="text" name="username" id="username">
 
         </div>
 
@@ -31,19 +31,15 @@
 
             <label for="password" class="form-label">Пароль:</label><br>
 
-            <input type="password" name="password" id="password" placeholder="Пароль">
+            <input type="password" name="password" id="password">
 
         </div>
 
-        <button class="btn btn-primary" type="submit">Войти</button>
+        <button class="btn btn-success" type="submit">Войти</button>
 
     </form>
     
 
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-        <a class="underlineHover" href="{% url 'account:login' %}">Забыл пароль?</a>
-      </div>
 
 <br>
 </div>

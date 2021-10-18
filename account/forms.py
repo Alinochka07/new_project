@@ -41,3 +41,8 @@ class SignUpForm(forms.Form):
             raise ValidationError('Инициалы',  code='not last_name and not first_name')
 
         return self.cleaned_data
+
+
+
+
+

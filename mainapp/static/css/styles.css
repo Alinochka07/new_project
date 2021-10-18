@@ -105,16 +105,6 @@
     z-index: 3;   
   }
   
-  .flex-rose{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  
-  .bouquet{
-    padding: 15px;
-  }
 
   
 

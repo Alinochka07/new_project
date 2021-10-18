@@ -7,10 +7,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.views.generic import View, ListView
 from .models import *
-from .forms import CommentForm
 from cart.forms import CartAddProductForm
+from django.db.models import Q
 
-# from itertools import chain
+
 
 
 
@@ -31,9 +31,11 @@ def product_list(request, category_slug=None):
 
 # Страница товара
 def product_detail(request, id, product_slug):
+    query = request.GET.get('q')
     product = get_object_or_404(Product, id=id, slug=product_slug, available=True)
     cart_product_form = CartAddProductForm()
     comments = Comment.objects.filter(product_id=id,status='True')
+    
     return render(request, 'product/productdetail.html', {
         'product': product, 
         'cart_product_form': cart_product_form,
@@ -41,27 +43,14 @@ def product_detail(request, id, product_slug):
 
 
 
-
+# Страница по доставке
 class DeliveryPage(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'delivery.html')
 
 
 
-class ProductListView(ListView):
-    model = Product
-    template_name = 'search.html'
-
-    def get_queryset(self):
-        queryset = Product.objects.all()
-        q = self.request.GET.get("q")
-        if q:
-        # Если 'q' в GET запросе, фильтруем кверисет по данным из 'q'
-            return queryset.filter(Q(name__icontains=q))
-        return queryset
-
-
-
+# Отзывы
 def addcomment(request,id):
    url = request.META.get('HTTP_REFERER') 
    #return HttpResponse(url)
@@ -85,6 +74,28 @@ def addcomment(request,id):
 
 
 
+
+# def search(request):
+#     if request.method == 'POST':
+#         search_term = request.POST.get('name', None)
+#         if search_term:
+#             results = Product.objects.filter(name__icontains=search_term)
+#             return render(request, 'search_products.html', {'results': results})
+#     return render(request, 'search_products.html')
+
+
+# def search(request):
+#     if request.method == 'GET':
+#         form = SearchForm(request.POST)
+#         if form.is_valid():
+#             query = form.cleaned_data['query'] 
+#             products = Product.objects.filter(name__icontains=query)
+#             category = Category.objects.all()
+#             context = {'products': products, 'query':query,
+#                        'category': category }
+#             return render(request, 'search_products.html', context)
+
+#     return HttpResponseRedirect('/')
 
 
 

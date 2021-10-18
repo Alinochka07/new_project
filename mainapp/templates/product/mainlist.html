@@ -22,96 +22,85 @@
   }
 </style>
 
-<table>
-  <tr>
-    <td style="width: 300px; vertical-align:top;">
+<!-- Page Content -->
+<div class="container">
 
+  <div class="row">
 
-      <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:100%; padding-left: 20px;">
+    
+    <!-- /.col-lg-3 -->
 
-        <div class="col-sm-4 col-sm-offset-1 blog-sidebar">
-          <div class="sidebar-module">
-            <h3>Категории товаров</h3>
-            <ol class="list-unstyled" style="width: max-content;">
-              <li {% if not category %} class="active"{% endif %}><a href="{% url 'mainapp:product-list' %}"><h5 style="font-size:18px; font-weight:bold;">Все категории</h5></a></li>
-            {% for c in categories %}
-        
-              <li {% if category.slug == c.slug %} class="active"{% endif %}>
-                  <a href="{{ c.get_absolute_url }}"><h5 class="" style="color: black; font-size:18px; font-weight:bold;">{{ c.name }}</h5></a>
-              </li>
-            {% endfor %}
-            </ol>
-          </div><!-- /.sidebar-module -->
-        </div><!-- /.blog-sidebar -->
+    <div class="col-lg-3 mt-5">
       
-      </div><!-- /w3-sidebar w3-light-grey w3-bar-block -->
-    </td>
-  
-<!-- Second table row category products -->
-
-    <td>
-      <div class="container" style="text-align: center; width: 100%; justify-content: center;">
-
+      <div class="list-group">
+        {% if not category %}
         
-        <div class="row d-flex">
-          {% for product in products %}
-          <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="{{ product.get_absolute_url }}"><img class="card-img-top" src="{{ product.image.url }}" alt=""></a>
-              <div class="card-body">
+         {% endif %}
+         <a href="{% url 'mainapp:product-list' %}"><h5 class="text-uppercase" style="text-align: left;">Все категории</h5></a>
+        {% for c in categories %}
+        <a href="{{ c.get_absolute_url }}" class="list-group-item">{{ c.name }}</a>
+        {% endfor %}
 
-                
-                <h5 class="card-title">
-                  <table class="center">
-                    <tr>
-                      <td><a href="{{ product.get_absolute_url }}"><h5 style="color: green;">{{ product.name }}</h5></a></td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h6 style="color: red;">{{ product.price }} Cом</h6>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <!--rating-->
-  
-                        <div class="product-rating">
-                          <i class="fa fa-star{% if product.averagereview < 1%}-o empty{% endif%}"></i>
-                          <i class="fa fa-star{% if product.averagereview < 2%}-o empty{% endif%}"></i>
-                          <i class="fa fa-star{% if product.averagereview < 3%}-o empty{% endif%}"></i>
-                          <i class="fa fa-star{% if product.averagereview < 4%}-o empty{% endif%}"></i>
-                          <i class="fa fa-star{% if product.averagereview < 5%}-o empty{% endif%}"></i>
-                      
-                        </div>
-                       
-                        <!--end of rating--> 
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <a href="{{ product.get_absolute_url }}">
-                          <button class="btn btn-success">Купить</button>
-                        </a>
-                      </td>
-                    </tr>
-                  </table>
-                  
-               
+      </div>
+
+    </div>
+
+    <div class="col-lg-9">
+
+      {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+              <strong>{{ message }}</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          {% endfor %}
+      {% endif %}
+
+
+            <br>
+            <br>
+            <br>
+           
+      <div class="row">
+        {% for product in products %}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
+            <a href="{{ product.get_absolute_url }}"><img class="card-img-top" src="{{ product.image.url }}" alt=""></a>
+            <div class="card-body">
+
+              
+              <h5 class="card-name" style="text-align: center;">
+                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+              </h5>
+              <h6 style="text-align: center;">{{ product.price }} Сом</h6>
+            
+              <!--rating-->
+              <div class="product-rating">
+                <i class="fa fa-star{% if product.averagereview < 1%}-o empty{% endif%}"></i>
+                <i class="fa fa-star{% if product.averagereview < 2%}-o empty{% endif%}"></i>
+                <i class="fa fa-star{% if product.averagereview < 3%}-o empty{% endif%}"></i>
+                <i class="fa fa-star{% if product.averagereview < 4%}-o empty{% endif%}"></i>
+                <i class="fa fa-star{% if product.averagereview < 5%}-o empty{% endif%}"></i>
+            
               </div>
+              <a href="{{ product.get_absolute_url }}">
+                <button class="btn btn-success">Купить</button>
+              </a>
+          
             </div>
           </div>
-          {% endfor %}
         </div>
-        <!-- /.row -->
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
-
-        
-        </div> <!--container-->
-    </td>
-  </tr>
-</table>
+  
 
 <br>
 <br>

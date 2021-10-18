@@ -1,4 +1,8 @@
 {% load static %}
+{% load i18n %}
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +19,7 @@
 </head>
 <body>
       
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="{% url 'mainapp:product-list' %}"><img src="{% static 'media/logo.png' %}" alt="Logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -24,15 +28,15 @@
 
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
-          <ul class="nav nav-pills">
+          <ul class="nav navbar-light">
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
                 Виды цветов
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Букеты из роз</a>
-                <a class="dropdown-item" href="#">Другие виды цветов</a>
+                <a class="dropdown-item" href="/bukety-iz-roz/">Букеты из роз</a>
+                <a class="dropdown-item" href="/drugie-vidy-cvetov/">Другие виды цветов</a>
                 
               </div>
             </li>
@@ -45,9 +49,9 @@
 
 
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">101 роза</a>
-                <a class="dropdown-item" href="#">Свадебные букеты</a>
-                <a class="dropdown-item" href="#">Букеты в корзинах</a>
+                <a class="dropdown-item" href="/101-roza/">101 роза</a>
+                <a class="dropdown-item" href="/svadebnye-bukety/">Свадебные букеты</a>
+                <a class="dropdown-item" href="/bukety-v-korzinah/">Букеты в корзинах</a>
               </div>
             </li>
 
@@ -56,21 +60,28 @@
                 Комнатные цветы и растения
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Цветы в горшках</a>
-                <a class="dropdown-item" href="#">Декоративные растения</a>
+                <a class="dropdown-item" href="/cvety-v-gorshkah/">Цветы в горшках</a>
+                <a class="dropdown-item" href="/komnatnye-rasteniya/">Декоративные растения</a>
               </div>
             </li>
 
-            <nav class="navbar navbar-light bg-white">
-            
-              <form class="form-inline" action="/search/" method="GET">
-
-                <input class="form-control mr-sm-2" type="text" placeholder="Искать товар" name="q">
-                <button class="btn btn-success" type="submit">Поиск</button> 
-              </form>
+            <nav class="navbar navbar-light bg-white"> <!--Search-->
+              <!-- Search -->
+              <div class="header-search">
+                <form action="{% url 'search:product_search' %}" method="post">
+                    {% csrf_token %}
+                    <input id="query" name="query" class="input search-input" type="text" placeholder="Поиск">
+                    <select name="catid"  class="input search-categories">
+                        <option value="0">{% trans "Все категории" %}</option>
+                       
+                    </select>
+                    <button class="btn btn-success"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+           
             </nav>
 
-            <nav class="navbar navbar-light bg-white">
+            <nav class="navbar navbar-light bg-white"><!--Cart  Delivery-->
               <div class="container">
                 <a class="navbar-brand" href="{% url "cart:cart-detail" %}">
                   <img src="{% static 'media/basket.png' %}" alt="" width="36"><span class="badge badge-pill badge-danger">
@@ -81,35 +92,37 @@
                 <a class="navbar-brand" href="{% url 'mainapp:delivery' %}">
                   <img src="{% static 'media/delivery.jpg' %}" alt="" width="40">
                 </a>
-
-            </nav>
-            <nav class="navbar navbar-light bg-white">
-              <div class="btn-group">
-                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Аккаунт
-                </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{% url 'account:login' %}">Войти в аккаунт</a>
-                  
-                  <a class="dropdown-item" href="{% url 'account:logout' %}">Выйти из аккаунта</a>
-                  {% block menu_links %}{% endblock %}
-                  <a class="dropdown-item" href="{% url 'account:register' %}">Регистрация</a>
-                  
-              </div>
+                
             </nav>
 
-            <nav class="navbar navbar-light bg-white">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
-              {% if user.is_authenticated %}   
-            
-                  <li class="menu-right">Привет, {{ user.username }}!</li>
+              <ul class="nav navbar-collapse">
     
-                  {% endif %}
-    
-            </nav>
-       
-        </div>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
+                    <img src="{% static 'media/profile.png' %}" width="29">
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% if user.is_authenticated %}
+                    <a class="dropdown-item" href="{% url 'account:logout' %}">Выйти из аккаунта</a>
+                      {% block menu_links %}{% endblock %}
+                    {% else %}
+
+                    <a class="dropdown-item" href="{% url 'account:login' %}">Войти в аккаунт</a>
+                    <a class="dropdown-item" href="{% url 'account:register' %}">Регистрация</a>
+                    {% endif %}
+                  </div>
+                </li>
+              </ul>
+            </div>
+            {% if user.is_authenticated %}   
+              <li class="menu-right"><p style="font-size: smaller;">Привет, {{ user.username }}!</p></li>
+            {% endif %}
+
+           
     </nav>
+    
 
     <!-- Карусель слайдер -->
 

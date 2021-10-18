@@ -57,7 +57,10 @@
   
       <!-- Section: Form -->
       <section class="">
-        <form action="">
+        {% block page %}
+        <form action="{% url 'contact:contact' %}" method="POST" class="w3layots-newsletter">
+          {% csrf_token %}
+          {{ contact_form }}
           <!--Grid row-->
           <div class="row d-flex justify-content-center">
             <!--Grid column-->
@@ -72,6 +75,7 @@
             <div class="col-md-5 col-12">
               <!-- Email input -->
               <div class="form-outline form-dark mb-4">
+              
                 <input type="email" id="form5Example2" class="form-control" placeholder="Email" />
               
               </div>
@@ -90,15 +94,14 @@
           </div>
           <!--Grid row-->
         </form>
+        {% endblock %}
       </section>
       <!-- Section: Form -->
   
       <!-- Section: Text -->
       <section class="mb-4">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-          repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
-          eum harum corrupti dicta, aliquam sequi voluptate quas.
+          Цветочный онлайн магазин Flowers - свежие и оригинально оформленные цветы для наших дорогих клиентов. 
         </p>
       </section>
       <!-- Section: Text -->
