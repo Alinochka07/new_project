@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +18,7 @@
 
 {% endblock content %}
 
+{% load contact_tags %}
 <!-- Footer -->
 <footer class="bg text-center text-dark" style="background-color: #e1baf5;">
     <!-- Grid container -->
@@ -49,52 +51,17 @@
         ></a>
   
         <!-- Github -->
-        <a class="btn btn-outline-dark btn-floating m-1" href="#!" role="button"
+        <a class="btn btn-outline-dark btn-floating m-1"  href="https://github.com/Alinochka07/new_project" target="_blank"  role="button"
           ><i class="fab fa-github"></i
         ></a>
       </section>
       <!-- Section: Social media -->
   
       <!-- Section: Form -->
-      <section class="">
-        {% block page %}
-        <form action="{% url 'contact:contact' %}" method="POST" class="w3layots-newsletter">
-          {% csrf_token %}
-          {{ contact_form }}
-          <!--Grid row-->
-          <div class="row d-flex justify-content-center">
-            <!--Grid column-->
-            <div class="col-auto">
-              <p class="pt-2">
-                <strong>Подпишитесь на нашу рассылку</strong>
-              </p>
-            </div>
-            <!--Grid column-->
-  
-            <!--Grid column-->
-            <div class="col-md-5 col-12">
-              <!-- Email input -->
-              <div class="form-outline form-dark mb-4">
-              
-                <input type="email" id="form5Example2" class="form-control" placeholder="Email" />
-              
-              </div>
-            </div>
-            <!--Grid column-->
-  
-            <!--Grid column-->
-            <div class="col-auto">
-              <!-- Submit button -->
-              <button type="submit" class="btn btn-success">
-                Подписка
-              </button>
-            </div>
-            <br>
-            <!--Grid column-->
-          </div>
-          <!--Grid row-->
-        </form>
-        {% endblock %}
+      <section class="mb-4">
+
+        {% contact_form %}
+
       </section>
       <!-- Section: Form -->
   
@@ -112,63 +79,63 @@
         <div class="row">
           <!--Grid column-->
           <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Links</h5>
+            <h5 class="text-uppercase">Виды цветов</h5>
   
             <ul class="list-unstyled mb-0">
               <li>
-                <a href="#!" class="text-dark">Link 1</a>
+                <a href="/bukety-iz-roz/" class="text-dark">Букеты из роз</a>
               </li>
               <li>
-                <a href="#!" class="text-dark">Link 2</a>
+                <a href="/drugie-vidy-cvetov/" class="text-dark">Другие виды цветов</a>
               </li>
-              <li>
+              <!-- <li>
                 <a href="#!" class="text-dark">Link 3</a>
               </li>
               <li>
                 <a href="#!" class="text-dark">Link 4</a>
-              </li>
+              </li> -->
             </ul>
           </div>
           <!--Grid column-->
   
           <!--Grid column-->
           <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Links</h5>
+            <h5 class="text-uppercase">Букеты для торжеств</h5>
   
             <ul class="list-unstyled mb-0">
               <li>
-                <a href="#!" class="text-dark">Link 1</a>
+                <a href="/101-roza/" class="text-dark">101 роза</a>
               </li>
               <li>
-                <a href="#!" class="text-dark">Link 2</a>
+                <a href="/svadebnye-bukety/" class="text-dark">Свадебные букеты</a>
               </li>
               <li>
-                <a href="#!" class="text-dark">Link 3</a>
+                <a href="/bukety-v-korzinah/" class="text-dark">Букеты в корзинах</a>
               </li>
-              <li>
+              <!-- <li>
                 <a href="#!" class="text-dark">Link 4</a>
-              </li>
+              </li> -->
             </ul>
           </div>
           <!--Grid column-->
   
           <!--Grid column-->
           <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Links</h5>
+            <h5 class="text-uppercase">Комнатные цветы и растения</h5>
   
             <ul class="list-unstyled mb-0">
               <li>
-                <a href="#!" class="text-dark">Link 1</a>
+                <a href="/cvety-v-gorshkah/" class="text-dark">Цветы в горшках</a>
               </li>
               <li>
-                <a href="#!" class="text-dark">Link 2</a>
+                <a href="/komnatnye-rasteniya/" class="text-dark">Декоративные растения</a>
               </li>
-              <li>
+              <!-- <li>
                 <a href="#!" class="text-dark">Link 3</a>
               </li>
               <li>
                 <a href="#!" class="text-dark">Link 4</a>
-              </li>
+              </li> -->
             </ul>
           </div>
           <!--Grid column-->
@@ -190,6 +157,25 @@
   </footer>
   <!-- Footer -->
 
-
+  <script src="//code-ya.jivosite.com/widget/9SFxw11Zpj" async></script>
+  <!-- GetButton.io widget -->
+<script type="text/javascript">
+  (function () {
+      var options = {
+          whatsapp: "+818051713521", // WhatsApp number
+          call: "+818051713521", // Call phone number
+          call_to_action: "Отправьте нам сообщение", // Call to action
+          button_color: "#FF318E", // Color of button
+          position: "left", // Position may be 'right' or 'left'
+          order: "whatsapp,call", // Order of buttons
+          pre_filled_message: "Здравствуйте. Какой букет вам собрать?", // WhatsApp pre-filled message
+      };
+      var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
+      var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+      s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+      var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  })();
+</script>
+<!-- /GetButton.io widget -->
 </body>
 </html>

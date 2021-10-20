@@ -10,4 +10,5 @@ urlpatterns = [
     path('<category_slug>/', views.product_list, name='category-list'),
     path('delivery', DeliveryPage.as_view(), name='delivery'),
     path('addcomment/<int:id>/', views.addcomment, name='addcomment'),
+    path('contactus', ContactUs.as_view(), name='contactus')
 ]

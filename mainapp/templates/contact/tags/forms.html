@@ -1,0 +1,16 @@
+<h5 class="footer-title text-uppercase editContent mb-lg-4 mb-3">Подпишитесь на нашу рассылку</h5>
+
+<!-- <p class="editContent">Добро пожаловать на сайт. Целых три месяца акция скидка до 30%</p> -->
+
+
+<form action="{% url 'contact:contact' %}" method="post" class="w3layots-newsletter">
+    {% csrf_token %}
+
+    {{ contact_form }}
+    <button class="btn btn-success">
+        <span class="fa fa-paper-plane-o" aria-hidden="true"></span>
+    </button>
+
+</form>
+
+

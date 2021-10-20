@@ -1,5 +1,4 @@
 from django.db import models
-from django.forms import ModelForm
 
 
 class Contact(models.Model):
@@ -9,14 +8,3 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.email
-
-
-
-class ContactForm(ModelForm):
-    """Форма подписки на email"""
-    # captcha = ReCaptchaField()
-
-    class Meta:
-        model = Contact
-        fields = ['email',]
-       
