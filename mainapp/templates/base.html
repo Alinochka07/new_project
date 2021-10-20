@@ -6,19 +6,25 @@
     <meta charset="UTF-8">
     <title>{% block title %}Цветочный магазин{% endblock %}</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> -->
-    <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> 
+    
 </head>
 <body>
 {% include 'navigationbar.html' %}
-
+{% if messages %}
+  <div class="text-center msg fade show" role="alert">{{ message }}</div>
+    
+{% endif %}
 
 {% block content %}
-
 
 {% endblock content %}
 
 {% load contact_tags %}
+
+<!-- Back to top button -->
+
+
 <!-- Footer -->
 <footer class="bg text-center text-dark" style="background-color: #e1baf5;">
     <!-- Grid container -->
@@ -61,6 +67,7 @@
       <section class="mb-4">
 
         {% contact_form %}
+        
 
       </section>
       <!-- Section: Form -->
@@ -154,6 +161,7 @@
       <a class="text-dark" href="#">Python-1, 50k Programmers</a>
     </div>
     <!-- Copyright -->
+
   </footer>
   <!-- Footer -->
 

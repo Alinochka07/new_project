@@ -65,10 +65,7 @@ class Product(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
-    
-
-    
-
+  
     def __str__(self):
         return self.name
 
@@ -108,6 +105,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.subject
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
 
 class CommentForm(ModelForm):
     class Meta:
