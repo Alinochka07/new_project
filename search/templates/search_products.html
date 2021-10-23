@@ -23,11 +23,12 @@
 			<div class="row">
 
 				<!-- MAIN -->
+				{% if products %}
 				<div id="main" class="col-md-12">
 					
                     <br>
                     <br>
-					<!-- STORE -->
+					
 					<div id="">
 						<!-- row -->
 						<div class="row">
@@ -35,8 +36,9 @@
                             <div class="col-md-12">
 						<div class="order-summary clearfix">
 							<div class="section-title">
-								<h4 class="title">По Вашему запросу найдено:</h4>
+								<h5 class="title">По Вашему запросу найдено:</h5>
 							</div>
+							<br>
 							<table class="shopping-cart-table table">
 								<thead>
 									<tr>
@@ -70,8 +72,18 @@
 						</div>
 						<!-- /row -->
 					</div>
-					<!-- /STORE -->
-
+					<br>
+					{% else %}
+					<div>
+						<p style="text-align: center;">По Вашему запросу ничего не найдено. Пожалуйста повторите запрос введя другое ключевое слово...</p>
+					</div>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					{% endif %}
 					
 				</div>
 				<!-- /MAIN -->
