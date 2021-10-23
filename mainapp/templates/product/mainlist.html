@@ -9,7 +9,8 @@
   margin-bottom: 30px;
   }
   .product-rating {
-    display: inline-block;
+    display: flexbox;
+    text-align: center;
   }
 
   .product-rating>i {
@@ -19,6 +20,10 @@
   table.center {
     margin-left:auto; 
     margin-right:auto;
+  }
+  .buy {
+    justify-content: center;
+    display: flex;
   }
 </style>
 
@@ -85,9 +90,13 @@
                 <i class="fa fa-star{% if product.averagereview < 5%}-o empty{% endif%}"></i>
             
               </div>
-              <a href="{{ product.get_absolute_url }}">
-                <button class="btn btn-success">Купить</button>
+              <br>
+              <div class="buy">
+                <a href="{{ product.get_absolute_url }}">
+                <button class="btn btn-success">Перейти для заказа</button>
               </a>
+              </div>
+              
           
             </div>
           </div>
