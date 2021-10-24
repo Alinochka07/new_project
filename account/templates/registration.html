@@ -1,17 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<!-- <div class="container" style="text-align: center;">
-    <h6 class="text-uppercase">Регистрация аккаунта</h6>
-
-    <form method="post" action="{% url 'account:register' %}" class="form-horizontal">
-        {% include 'forms.html' with button_text='Регистрация' %}
-    </form>
-</div> -->
 
 
-<div class="container">
+<div class="container py-5">
 
-    <h3>Регистрация аккаунта</h3>
+    <h4 style="text-align: center;">Регистрация аккаунта</h4>
     <br>
 
     <form action="{% url 'account:register' %}" method="post" class="">
